@@ -2,11 +2,10 @@ class RedirectController < ApplicationController
   protect_from_forgery except: :redirect
 
   def redirect
-    url = Base64.decode64(params['url'])
+    uri = URI(request.url)
 
-    #look up matching rule
-    #redirect to url
+    new_url = Rules.new(uri).lookup
 
-    redirect_to url
+    redirect_to new_url
   end
 end

@@ -3,5 +3,5 @@ Rails.application.routes.draw do
 
   root 'redirect_urls#index'
 
-  get 'redirect/*url' => 'redirect#redirect'
+  match "*path", to: "redirect#redirect", via: :all
 end
