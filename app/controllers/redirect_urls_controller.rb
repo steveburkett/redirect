@@ -37,19 +37,6 @@ class RedirectUrlsController < ApplicationController
     end
   end
 
-  def redirect
-    #look up matching rule
-    #redirect to @redirect_url
-
-    respond_to do |format|
-      if @redirect_url.save
-        format.html { redirect_to @redirect_url }
-      else
-        format.html { render :new }
-      end
-    end
-  end
-
   # PATCH/PUT /redirect_urls/1
   # PATCH/PUT /redirect_urls/1.json
   def update

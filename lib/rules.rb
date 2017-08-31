@@ -5,21 +5,22 @@ class Rules
 
   def lookup
     path = @uri.path
+    path.gsub!(/^\//, '')
 
     RedirectUrl.all.each do | rule |
       matches = path.match(/#{rule.from}/)
       if matches.present?
-        to_url = rule.to
-        binding.pry
-        matches.each do |match|
-          to_url.sub!(match.to_s)
+        hashes = Hash[ matches.names.zip( matches.captures ) ]
+        if hashes.keys.count > 0
+          to_url = rule.to
+          hashes.each do |key, value|
+            to_url.gsub!(key, value)
+          end
+          return to_url
         end
-        binding.pry
-        return to_url
       end
     end
 
-    binding.pry
     @url #return url as default
   end
 end
